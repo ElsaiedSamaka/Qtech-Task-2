@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { GithubApi } from './simple-mat-table/simple-mat-table.component';
 import { SortDirection } from '@angular/material/sort';
 
 @Injectable({
@@ -17,10 +16,10 @@ export class GithubService {
     order: SortDirection,
     page: number,
     perpage: number
-  ): Observable<GithubApi> {
+  ): Observable<any> {
     const href = 'https://api.github.com/search/issues';
     const requestUrl = `${href}?q=${filter}+in:title+repo:angular/components&sort=${sort}&order=${order}&page=${page}&per_page=${perpage}`;
 
-    return this.http.get<GithubApi>(requestUrl);
+    return this.http.get<any>(requestUrl);
   }
 }
