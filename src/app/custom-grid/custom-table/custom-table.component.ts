@@ -11,7 +11,7 @@ export class CustomTableComponent {
   public current = 1;
   public items: any[] = [];
   public itemsToDisplay: any[] = [];
-  public perPage = 10;
+  public perPage = 5;
   public total = Math.ceil(this.items.length / this.perPage);
 
   ngOnInit(): void {
@@ -24,13 +24,17 @@ export class CustomTableComponent {
   }
 
   public onNext(page: number): void {
-    this.current = page + 1;
-    this.itemsToDisplay = this.paginate(this.current, this.perPage);
+    if (this.current < this.total) {
+      this.current = page + 1;
+      this.itemsToDisplay = this.paginate(this.current, this.perPage);
+    }
   }
 
   public onPrevious(page: number): void {
-    this.current = page - 1;
-    this.itemsToDisplay = this.paginate(this.current, this.perPage);
+    if (this.current > 1) {
+      this.current = page - 1;
+      this.itemsToDisplay = this.paginate(this.current, this.perPage);
+    }
   }
 
   public paginate(current: number, perPage: number): string[] {
@@ -43,7 +47,7 @@ export class CustomTableComponent {
 
   loadData(): void {
     this.githubService
-      .getRepoIssues('angular', 'created', 'desc', this.current, this.perPage)
+      .loadRepoIssues('angular', 'created', 'desc')
       .subscribe((response) => {
         this.items = response.items;
         this.total = response.total_count;

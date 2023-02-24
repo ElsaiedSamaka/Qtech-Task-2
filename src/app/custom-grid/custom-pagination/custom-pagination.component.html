@@ -1,6 +1,6 @@
 <div class="ui right floated pagination menu">
     <a class="icon item">
-        <button [disabled]="current === 1">
+        <button [disabled]="current <= 1">
             <i class="left chevron icon" (click)="onPrevious()"></i>
         </button>
     </a>

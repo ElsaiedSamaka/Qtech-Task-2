@@ -44,9 +44,9 @@ export class CustomPaginationComponent {
   }
   // right now we are getting our pages in the following format:
   private getPages(current: number, total: number): number[] {
-    
+
     if (total <= 7) {
-      return [...Array(total).keys()].map((x) => ++x);
+      return [...Array(total)].map((x) => ++x);
     }
 
     if (current > 5) {
