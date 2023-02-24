@@ -1,0 +1,20 @@
+<div class="ui right floated pagination menu">
+    <a class="icon item">
+        <button [disabled]="current === 1">
+            <i class="left chevron icon" (click)="onPrevious()"></i>
+        </button>
+    </a>
+    <ng-container *ngFor="let page of pages; index as i">
+        <a *ngIf="page !== -1; else more" class="item" [attr.aria-current]="page === current ? 'page' : null"
+            [attr.aria-label]="
+              page === current ? 'Current Page, Page ' + page : 'Go to Page ' + page
+            " [class.current]="page === current" tabindex="0" (click)="onGoTo(page)" (keyup.enter)="onGoTo(page)">{{
+            page
+            }}</a>
+    </ng-container>
+    <a class="icon item">
+        <button [disabled]="current === total">
+            <i class="right chevron icon" (click)="onNext()"></i>
+        </button>
+    </a>
+</div>

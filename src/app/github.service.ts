@@ -1,15 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
 import { SortDirection } from '@angular/material/sort';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GithubService {
   constructor(private http: HttpClient) {}
-
   public getRepoIssues(
     filter: string,
     sort: string,
