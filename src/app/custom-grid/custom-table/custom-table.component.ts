@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { GithubService } from 'src/app/github.service';
 import { GithubIssue } from '../github-issue';
 
@@ -13,6 +13,14 @@ export class CustomTableComponent {
   public itemsToDisplay: any[] = [];
   public perPage = 5;
   public total = Math.ceil(this.items.length / this.perPage);
+  public searchkeyword: string = '';
+  @Output() searchKeywordChanged: EventEmitter<string> =
+    new EventEmitter<string>();
+
+  onSearchKeywordChanged(): void {
+    this.searchKeywordChanged.emit(this.searchkeyword);
+    this.searchIssues();
+  }
 
   ngOnInit(): void {
     this.itemsToDisplay = this.paginate(this.current, this.perPage);
@@ -48,6 +56,15 @@ export class CustomTableComponent {
   loadData(): void {
     this.githubService
       .loadRepoIssues('angular', 'created', 'desc')
+      .subscribe((response) => {
+        this.items = response.items;
+        this.total = response.total_count;
+        this.itemsToDisplay = this.paginate(this.current, this.perPage);
+      });
+  }
+  searchIssues(): void {
+    this.githubService
+      .getRepoIssues(this.searchkeyword, 'created', 'desc', 1, 5)
       .subscribe((response) => {
         this.items = response.items;
         this.total = response.total_count;

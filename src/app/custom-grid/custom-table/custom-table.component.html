@@ -12,7 +12,8 @@
             TODO: Implement search and filter
             [formControl]="searchKeywordFilter"
          -->
-        <input class="prompt form-control" type="text" name="issueTitle" placeholder="Search Issues...">
+        <input class="prompt form-control" type="text" name="issueTitle" placeholder="Search Issues..."
+            [(ngModel)]="searchkeyword" (input)="onSearchKeywordChanged()">
         <i class="search icon"></i>
     </div>
 </div>
